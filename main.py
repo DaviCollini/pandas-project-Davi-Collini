@@ -1,5 +1,4 @@
 import pandas as pd
-from IPython.display import display
 from time import sleep
 from tkinter import filedialog
 from tkinter import *
@@ -52,6 +51,9 @@ print(dbms.head(5))
 sleep(0.5)
 print("Hello, this is my project on Pandas, let's se if i can help you")
 sleep(1)
+print("Making your code format to better experience!")
+sleep(1)
+
 while True:
     sleep(0.5)
 
@@ -80,28 +82,23 @@ ENTER A OPTION: '''))
         print(dbms)
 
     if r1 == 2:
+        indexnumbers = dbms.shape[1]
+
         #add a new row on the any index you want
+        user_inputs = []
+        for i in range(indexnumbers):
+            user_input = input(f"Enter a value for a column {i+1}: ")
+            user_inputs.append(user_input)
+
+        new_row = pd.DataFrame([user_inputs], columns=dbms.columns)
         index1 = int(input("enter where you want that row: "))
-        N1 = int(input("Enter a serial number: "))
-        N2 = input("Enter a name: ")
-        N3 = int(input("Enter the numbers of unit : "))
-        N4 = input("Enter DBMS state and city: ")
-        N5 = input("Enter type of DBMS: ")
-        N6 = input("Enter creation date: ")
-        new_row = ({
-            " Serial number": [N1],
-            "Name": [N2],
-            "Unit(s)": [N3],
-            "DBMS place": [N4],
-            "Type": [N5],
-            "Creation date": [N6]})
         insert_index = index1
         newdbms1 = dbms.loc[:insert_index - 1]
         newdbms2 = dbms.loc[insert_index:]
-        
+
         dbms = newdbms1._append(new_row, ignore_index=True)
         dbms = pd.concat([dbms, newdbms2], ignore_index=True)
-        
+
         sleep(0.5)
         print(dbms)
         dbms.to_excel("DBMS.xlsx", index=False)
