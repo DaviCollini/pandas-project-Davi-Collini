@@ -6,33 +6,14 @@ from tkinter import *
 r1 = r2 = r3 = r4 = r5 = ""
 
 root = Tk()
-
+#to select your file
 root.filenames = filedialog.askopenfilenames(
   initialdir="/",  
   title="Select Files",
 )
 file_paths = root.tk.splitlist(root.filenames)
 read_functions = {
-  ".csv": pd.read_csv,
   ".xlsx": pd.read_excel,
-  ".json": pd.read_json,
-  ".sql":pd.read_sql, 
-  ".hdf5":pd.read_hdf, 
-  ".parquet":pd.read_parquet, 
-  ".feather":pd.read_feather, 
-  ".html":pd.read_html, 
-  ".clipboard":pd.read_clipboard, 
-  ".pickle":pd.read_pickle, 
-  ".sas":pd.read_sas, 
-  ".stata":pd.read_stata, 
-  ".xml":pd.read_xml,
-  ".orc":pd.read_orc,
-  ".fwf":pd.read_fwf,
-  ".gbq":pd.read_gbq,
-  ".spss":pd.read_spss,
-  ".sql_query":pd.read_sql_query,
-  ".sql_table":pd.read_sql_table,
-  ".table":pd.read_table  
 }
 
 
@@ -67,7 +48,6 @@ while True:
 [9] SEE ONLY THE RESULT SEARCH YOU WANT
 [10] EDIT A ROW
 [11] SORT OPTIONS
-[12] NaN OPTIONS
 ENTER A OPTION: '''))
 
     if r1 == 0:
@@ -77,7 +57,7 @@ ENTER A OPTION: '''))
 
     if r1 == 1:
         print(dbms)
-
+    
     if r1 == 2:
         #add a new row on the any index you want
         index1 = int(input("enter where you want that row: "))
@@ -214,14 +194,12 @@ ENTER A OPTION: '''))
             n5 = input("Enter type of DBMS: ")
             n6 = input("Enter creation date: ")
             
-        
             dbms.at[row_index, " Serial number"] = n1
             dbms.at[row_index, "Name"] = n2
             dbms.at[row_index, "Unit(s)"] = n3
             dbms.at[row_index, "DBMS place"] = n4
             dbms.at[row_index, "Type"] = n5
             dbms.at[row_index, "Creation date"] = n6
-            dbms.strip("[]")
         else:
             sleep(1)
             print("row index not found")
@@ -256,34 +234,3 @@ ENTER A OPTION: '''))
             if r3 == 5:
                 dbms["Unit(s)"] = dbms["Unit(s)"].astype(int)
                 print(dbms.sort_values(by="Unit(s)",ascending=False))
-
-
-
-# to clean a NaN and other features
-    if r1 == 12:
-     while True:
-        r4 = int(input('''[0] TO GO BACK
-[1] DROP ALL ROW THAT HAVE NaN/NONE VALUES
-[2] DROP EMPTY ROW
-[3] FILL THE NaN TO 0 
-[4] RESET INDEX
-        '''))
-        if r4 == 0:
-            break
-        if r4 == 1:
-            dbms.dropna()
-            print(dbms)
-        if r4 == 2:
-            dbms.dropna(how="all")
-            print(dbms)
-        if r4 == 3:
-            dbms.fillna(0)
-            print(dbms)
-        if r4 == 4:
-            dbms.reset_index
-            print(dbms)
-
-
-
-
-            
